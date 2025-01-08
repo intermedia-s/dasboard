@@ -1,0 +1,5 @@
+node-red flow dependency
+
+npm install node-red-contrib-easy-oracle
+npm install node-red-contrib-modbus
+npm install node-red-dashboard

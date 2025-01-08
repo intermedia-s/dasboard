@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/*The container*/
+.cssbutton{
+  position:relative;
+  text-align:center;
+  margin:1px;
+  cursor:pointer;
+/*  font-size:22px;*/
+  user-select:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+}
+
+/*Hide the browser's default button*/
+.cssbutton input{display:none;}
+
+/*Create a custom button*/
+.cssmark{
+  position:inherit;
+  top:0px;
+  left:-1px;
+  height:25px;
+  width:25px;
+  background-color:#eee;
+  border-radius:25%;
+}
+
+/*When the button is checked, add a green background*/
+.cssbutton input:checked ~ .cssmark{
+  background-color:#3c3;
+}
+
+/*Create the checked indicator(hidden when not checked)*/
+.cssmark:after{
+  content:"";
+  position:absolute;
+  display:none;
+}
+
+/*Show the indicator when checked*/
+.cssbutton input:checked ~ .cssmark:after{
+  display:inline;
+}
+
+/*Style the indicator checkmark/dot/circle*/
+.cssbutton .cssmark:after{
+  left:9px;
+  top:5px;
+  width:7px;
+  height:15px;
+  border:solid white;
+  border-width:0 3px 5px 0;
+  transform:rotate(45deg);
+}
