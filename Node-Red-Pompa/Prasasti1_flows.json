@@ -82,7 +82,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 820,
+        "x": 860,
         "y": 40,
         "wires": []
     },
@@ -295,7 +295,7 @@
         "type": "function",
         "z": "c482247bbb28b1e8",
         "name": "dec to ascii",
-        "func": "// fungsi desimal ke heksadesimal\nfunction decimalArrayToHexArray(decimalArray) {\n    return decimalArray.map(decimal => decimal.toString(16))\n}\n\n// fungsi heksadesimal ke ascii\nfunction hexToAscii(hexArray) {\n    return hexArray.map(hex => {\n        let asciiString = ''\n        for (let i = 0; i < hex.length; i += 2) {\n            asciiString += String.fromCharCode(parseInt(hex.substr(i, 2), 16))\n        }\n        return asciiString\n    })\n}\n\n// mengeluarkan dari array\nfunction combineAsciiStrings(asciiArray) {\n    return asciiArray.join('')\n}\n\n// Konversi ke heksadesimal\nlet hexNumber = decimalArrayToHexArray(msg.payload)\n\n// Konversi ke ascii\nlet asciiChar=hexToAscii(hexNumber)\n\n// Set hasil ke msg.payload\nmsg.payload = combineAsciiStrings(asciiChar)\n\nreturn msg",
+        "func": "// fungsi desimal ke heksadesimal\nfunction decimalArrayToHexArray(decimalArray) {\n    return decimalArray.map(decimal => decimal.toString(16))\n}\n\n// fungsi heksadesimal ke ascii\nfunction hexToAscii(hexArray) {\n    return hexArray.map(hex => {\n        let asciiString = ''\n        for (let i = 0; i < hex.length; i += 2) {\n            asciiString += String.fromCharCode(parseInt(hex.substr(i, 2), 16))\n        }\n        return asciiString\n    })\n}\n\n// mengeluarkan dari array\nfunction combineAsciiStrings(asciiArray) {\n    return asciiArray.join('')\n}\n\n// Konversi ke heksadesimal\nlet hexNumber = decimalArrayToHexArray(msg.payload)\n\n// Konversi ke ascii\nlet asciiChar=hexToAscii(hexNumber)\n\n// Set hasil ke msg.payload\nlet txt = combineAsciiStrings(asciiChar)\nmsg.payload = txt.substr(0, 15)\nreturn msg",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -988,7 +988,7 @@
         "type": "function",
         "z": "c482247bbb28b1e8",
         "name": "insertDB_SQL",
-        "func": "let motorName = flow.get('lokasiDevice')\nlet powerKw = flow.get('nilaiPower')\nlet currentAmpere = flow.get('nilaiAmpere')\nlet overCurrent = flow.get('limitOverCurrent')\nlet overVolt = flow.get('limitOverVolt')\nlet underVolt = flow.get('limitUnderVolt')\nlet waterLevel = flow.get('waterLevel')\nlet pump1 = flow.get('pump1')\nlet pump2 = flow.get('pump2')\nlet pump3 = flow.get('pump3')\nlet maintainAge = flow.get('maintainAge')\nlet maintainRun = flow.get('maintainRun')\n\nmsg.topic = \"INSERT INTO sensor(power_kw,current_ampere,overcurrent_percent,overvolt_percent,undervolt_percent,waterlevel,pump1_status,pump2_status,pump3_status,wrnmaintainage,wrnmaintainrun) VALUES ('\"+powerKw+\",\"+currentAmpere+\",\"+overCurrent+\",\"+overVolt+\",\"+underVolt+\",\"+waterLevel+\",\"+pump1+\",\"+pump2+\",\"+pump3+\",\"+maintainAge+\",\"+maintainRun+\"')\"\n\nreturn msg;",
+        "func": "let atRequest = flow.get('atRequest')\nlet motorName = flow.get('motorName')\nlet decode = flow.get('decode')\nlet controllerMode = flow.get('controllerMode')\nlet waterLevel = flow.get('waterLevel')\nlet pump1 = flow.get('pump1')\nlet pump2 = flow.get('pump2')\nlet pump3 = flow.get('pump3')\nlet runM1 = flow.get('runM1')\nlet runM2 = flow.get('runM2')\nlet runM3 = flow.get('runM3')\nlet maintenHour = flow.get('maintenanceHour')\nlet energyKW = flow.get('energyKW')\nlet energyKVA = flow.get('energyKVA')\nlet apparPower = flow.get('apparPower')\nlet voltageL1N = flow.get('voltageL1N')\nlet voltageL2N = flow.get('voltageL2N')\nlet voltageL3N = flow.get('voltageL3N')\nlet currentL1 = flow.get('currentL1')\nlet currentL2 = flow.get('currentL2')\nlet currentL3 = flow.get('currentL3')\nlet maintainRun = flow.get('maintainRunDay')\nlet maintainAge = flow.get('maintainAge')\nlet nomPower = flow.get('nominalPower')\nlet nomCurrent = flow.get('nominalCurrent')\n\nlet overCurrent = flow.get('limitOverCurrent')\nlet overVolt = flow.get('limitOverVolt')\nlet underVolt = flow.get('limitUnderVolt')\n\nmsg.topic = \"INSERT INTO pompa_prasasti (motorname,passdecode,controller_mode,waterlevel,pump1_status,pump2_status,pump3_status,runhourM1,runhourM2,runhourM3,maintenance_hour,energyKW,energyKVA,apparent_power,voltageL1N,voltageL2N,voltageL3N,currentL1,currentL2,currentL3,set_maintainrun,set_maintainage,set_nominal_power,set_nominal_current,datetime) VALUES (\"+motorName+\",\"+decode+\",\"+controllerMode+\",\"+waterLevel+\",\"+pump1+\",\"+pump2+\",\"+pump3+\",\"+runM1+\",\"+runM2+\",\"+runM3+\",\"+maintenHour+\",\"+energyKW+\",\"+energyKVA+\",\"+apparPower+\",\"+voltageL1N+\",\"+voltageL2N+\",\"+voltageL3N+\",\"+currentL1+\",\"+currentL2+\",\"+currentL3+\",\"+maintainRun+\",\"+maintainAge+\",\"+nomPower+\",\"+nomCurrent+\",SYSDATE)\"\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1692,7 +1692,7 @@
         "z": "c482247bbb28b1e8",
         "name": "ORACLE db_pompa",
         "server": "b7704d13888d6e3b",
-        "x": 760,
+        "x": 840,
         "y": 80,
         "wires": [
             []
